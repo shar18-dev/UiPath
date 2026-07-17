@@ -1,0 +1,23 @@
+{
+  "docVersion": "1.0.0",
+  "resource": {
+    "name": "Paystub_Validation_Agent",
+    "kind": "package",
+    "apiVersion": "orchestrator.uipath.com/v1",
+    "projectKey": "c578aec5-a3dc-48b5-bf36-b38eff2b8ed2",
+    "isOverridable": true,
+    "dependencies": [],
+    "runtimeDependencies": [],
+    "files": [],
+    "folders": [
+      {
+        "fullyQualifiedName": "solution_folder"
+      }
+    ],
+    "spec": {
+      "name": "Paystub_Validation_Agent"
+    },
+    "locks": [],
+    "key": "bbdc2970-fc29-4129-a9a2-baf95396ebbe"
+  }
+}

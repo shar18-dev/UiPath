@@ -1,0 +1,44 @@
+{
+  "docVersion": "1.0.0",
+  "resource": {
+    "name": "Paystub_Validation_Agent",
+    "kind": "process",
+    "type": "agent",
+    "apiVersion": "orchestrator.uipath.com/v1",
+    "projectKey": "c578aec5-a3dc-48b5-bf36-b38eff2b8ed2",
+    "isOverridable": true,
+    "dependencies": [
+      {
+        "name": "Paystub_Validation_Agent",
+        "kind": "package"
+      }
+    ],
+    "runtimeDependencies": [],
+    "files": [],
+    "folders": [
+      {
+        "fullyQualifiedName": "solution_folder"
+      }
+    ],
+    "spec": {
+      "type": "Agent",
+      "name": "Paystub_Validation_Agent",
+      "package": {
+        "key": "bbdc2970-fc29-4129-a9a2-baf95396ebbe"
+      },
+      "packageName": "Paystub.Validation.Solution.agent.Paystub_Validation_Agent",
+      "hiddenForAttendedUser": false,
+      "alwaysRunning": false,
+      "autoStartProcess": false,
+      "targetFrameworkValue": "Portable",
+      "agentMemory": false,
+      "retentionAction": "Delete",
+      "retentionPeriod": 30,
+      "staleRetentionAction": "Delete",
+      "staleRetentionPeriod": 180,
+      "tags": []
+    },
+    "locks": [],
+    "key": "f8caeb68-0ac5-4ec3-91b3-e19a1e6e8655"
+  }
+}

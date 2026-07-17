@@ -1,0 +1,353 @@
+{
+  "id": "8f180203-fb2c-44d0-918f-d25b7b75fbdd",
+  "version": "1.1.0",
+  "name": "Paystub_Validation_Agent",
+  "metadata": {
+    "storageVersion": "50.0.0",
+    "isConversational": false,
+    "targetRuntime": "pythonAgent",
+    "showProjectCreationExperience": false
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a Validation Agent responsible for checking the quality and completeness of paystub data before it is entered into a loan management system. Your main goal is to extract data from a provided {{input.paystubFile}} file and then validate whether the extracted fields are complete, meet expected confidence thresholds, and follow basic format validation.\r\nFollow these steps:\r\n1. Use the Paystub_Extraction_LoanProcessing tool to extract data from the provided {{input.paystubFile}} file.\r\n2. Validate the extracted data using the following rules:\r\n - All {{input.requiredFields}}must be present and non-empty.\r\n - If confidence scores are provided, each field must meet or exceed the  {{input.threshold}} value, if not specified, 0.5 should be considered as threshold.\r\n - Apply basic format validation:\r\n - Dates must match YYYY-MM-DD\r\n - Monetary fields must be numeric\r\n - Names must be non-empty strings\r\n3. If any field fails these checks, mark the result as \"needs_review\" or \"invalid\" and explain why.\r\n3.1 If the checks are marked and needs_review or invalid, raise an escalation for human validation.\r\n4. Output a structured JSON object with:\r\n - status: one of \"valid\", \"needs_review\", or \"invalid\"\r\n - issues: list of specific problems\r\n - flaggedFields: list of fields that failed\r\n - passedFields: list of fields that passed\r\n - recommendedAction: \"proceed\", \"human_review\", or \"skip\"\r\n - extractedData: the paystub data returned in a JSON string format\r\n - Include specific fields: EmployeeName, PayPeriodStartDate, PayPeriodEndDate, NetPay\r\n5. Output the entire document data extracted using the provided tool, in a JSON format string, in documentData.\r\n6. If the status is needs_review or human_review, raise an escalation for human validation using Escalation_1.\r\nAlways maintain a professional and efficient approach to data validation.",
+      "contentTokens": [
+        {
+          "type": "simpleText",
+          "rawString": "You are a Validation Agent responsible for checking the quality and completeness of paystub data before it is entered into a loan management system. Your main goal is to extract data from a provided "
+        },
+        {
+          "type": "variable",
+          "rawString": "input.paystubFile"
+        },
+        {
+          "type": "simpleText",
+          "rawString": " file and then validate whether the extracted fields are complete, meet expected confidence thresholds, and follow basic format validation.\r\nFollow these steps:\r\n1. Use the Paystub_Extraction_LoanProcessing tool to extract data from the provided "
+        },
+        {
+          "type": "variable",
+          "rawString": "input.paystubFile"
+        },
+        {
+          "type": "simpleText",
+          "rawString": " file.\r\n2. Validate the extracted data using the following rules:\r\n - All "
+        },
+        {
+          "type": "variable",
+          "rawString": "input.requiredFields"
+        },
+        {
+          "type": "simpleText",
+          "rawString": "must be present and non-empty.\r\n - If confidence scores are provided, each field must meet or exceed the  "
+        },
+        {
+          "type": "variable",
+          "rawString": "input.threshold"
+        },
+        {
+          "type": "simpleText",
+          "rawString": " value, if not specified, 0.5 should be considered as threshold.\r\n - Apply basic format validation:\r\n - Dates must match YYYY-MM-DD\r\n - Monetary fields must be numeric\r\n - Names must be non-empty strings\r\n3. If any field fails these checks, mark the result as \"needs_review\" or \"invalid\" and explain why.\r\n3.1 If the checks are marked and needs_review or invalid, raise an escalation for human validation.\r\n4. Output a structured JSON object with:\r\n - status: one of \"valid\", \"needs_review\", or \"invalid\"\r\n - issues: list of specific problems\r\n - flaggedFields: list of fields that failed\r\n - passedFields: list of fields that passed\r\n - recommendedAction: \"proceed\", \"human_review\", or \"skip\"\r\n - extractedData: the paystub data returned in a JSON string format\r\n - Include specific fields: EmployeeName, PayPeriodStartDate, PayPeriodEndDate, NetPay\r\n5. Output the entire document data extracted using the provided tool, in a JSON format string, in documentData.\r\n6. If the status is needs_review or human_review, raise an escalation for human validation using Escalation_1.\r\nAlways maintain a professional and efficient approach to data validation."
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": "Please process the provided paystub file using the following steps:\r\n1. Use the Paystub_Extraction_LoanProcessing tool to extract data from the {{input.paystubFile}}.\r\n2. Validate the extracted data using the rules specified in the system prompt.\r\n3. Ensure all {{input.requiredFields}} are present and meet the confidence {{input.threshold}}. if not specified, 0.5 should be considered as threshold.\r\n4. Generate a validation report in the specified JSON format.\r\n5. If the status is needs_review or human_review, raise an escalation for human validation using Escalation_1.\r\nRequired fields: {{input.requiredFields}}\r\nConfidence threshold: {{input.threshold}}\r\nPlease provide a detailed analysis of the paystub data and highlight any issues or discrepancies found during the validation process.\r\n",
+      "contentTokens": [
+        {
+          "type": "simpleText",
+          "rawString": "Please process the provided paystub file using the following steps:\r\n1. Use the Paystub_Extraction_LoanProcessing tool to extract data from the "
+        },
+        {
+          "type": "variable",
+          "rawString": "input.paystubFile"
+        },
+        {
+          "type": "simpleText",
+          "rawString": ".\r\n2. Validate the extracted data using the rules specified in the system prompt.\r\n3. Ensure all "
+        },
+        {
+          "type": "variable",
+          "rawString": "input.requiredFields"
+        },
+        {
+          "type": "simpleText",
+          "rawString": " are present and meet the confidence "
+        },
+        {
+          "type": "variable",
+          "rawString": "input.threshold"
+        },
+        {
+          "type": "simpleText",
+          "rawString": ". if not specified, 0.5 should be considered as threshold.\r\n4. Generate a validation report in the specified JSON format.\r\n5. If the status is needs_review or human_review, raise an escalation for human validation using Escalation_1.\r\nRequired fields: "
+        },
+        {
+          "type": "variable",
+          "rawString": "input.requiredFields"
+        },
+        {
+          "type": "simpleText",
+          "rawString": "\r\nConfidence threshold: "
+        },
+        {
+          "type": "variable",
+          "rawString": "input.threshold"
+        },
+        {
+          "type": "simpleText",
+          "rawString": "\r\nPlease provide a detailed analysis of the paystub data and highlight any issues or discrepancies found during the validation process.\r\n"
+        }
+      ]
+    }
+  ],
+  "inputSchema": {
+    "type": "object",
+    "required": [
+      "requiredFields",
+      "paystubFile"
+    ],
+    "properties": {
+      "requiredFields": {
+        "type": "string",
+        "description": "A list of fields that must be present and non-empty, formatted in json format"
+      },
+      "threshold": {
+        "type": "number",
+        "description": "Confidence threshold (e.g., 0.35) below which the field is flagged"
+      },
+      "paystubFile": {
+        "$ref": "#/definitions/job-attachment"
+      }
+    },
+    "definitions": {
+      "job-attachment": {
+        "type": "object",
+        "required": [
+          "ID"
+        ],
+        "x-uipath-resource-kind": "JobAttachment",
+        "properties": {
+          "ID": {
+            "type": "string",
+            "description": "Orchestrator attachment key"
+          },
+          "FullName": {
+            "type": "string",
+            "description": "File name"
+          },
+          "MimeType": {
+            "type": "string",
+            "description": "The MIME type of the content, such as \"application/json\" or \"image/png\""
+          },
+          "Metadata": {
+            "type": "object",
+            "description": "Dictionary<string, string> of metadata",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "outputSchema": {
+    "type": "object",
+    "required": [
+      "status",
+      "issues",
+      "passedFields",
+      "flaggedFields",
+      "recommendedAction",
+      "extractedData",
+      "EmployeeName",
+      "PayPeriodStartDate",
+      "PayPeriodEndDate",
+      "NetPay"
+    ],
+    "properties": {
+      "status": {
+        "type": "string",
+        "description": "\"valid\", \"needs_review\", or \"invalid\""
+      },
+      "issues": {
+        "type": "array",
+        "description": "List of problematic fields or explanations",
+        "items": {
+          "type": "string"
+        }
+      },
+      "passedFields": {
+        "type": "array",
+        "description": "Fields that passed all checks",
+        "items": {
+          "type": "string"
+        }
+      },
+      "flaggedFields": {
+        "type": "array",
+        "description": "Fields that failed due to missing or low confidence",
+        "items": {
+          "type": "string"
+        }
+      },
+      "recommendedAction": {
+        "type": "string",
+        "description": "\"proceed\", \"human_review\", or \"skip\""
+      },
+      "extractedData": {
+        "type": "string",
+        "description": "The paystub data returned in a json string format."
+      },
+      "EmployeeName": {
+        "type": "string",
+        "description": "The employee name from paystub extraction data"
+      },
+      "PayPeriodStartDate": {
+        "type": "string",
+        "description": "The pay period start date from paystub extraction data"
+      },
+      "PayPeriodEndDate": {
+        "type": "string",
+        "description": "The pay period end date from paystub extraction data"
+      },
+      "NetPay": {
+        "type": "string",
+        "description": "The net pay from paystub extraction data"
+      }
+    }
+  },
+  "settings": {
+    "model": "gpt-5.4-2026-03-05-community-agents",
+    "maxTokens": 65535,
+    "temperature": 0,
+    "engine": "basic-v2",
+    "maxIterations": 25,
+    "mode": "standard"
+  },
+  "resources": [
+    {
+      "$resourceType": "tool",
+      "id": "4f0da455-84a4-41ff-b256-9b27df9b8d06",
+      "name": "Paystubs_Validation_IXP",
+      "description": "Blank description",
+      "location": "external",
+      "type": "ixp",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "attachment": {
+            "description": "File to extract data from.",
+            "$ref": "#/definitions/job-attachment"
+          }
+        },
+        "required": [
+          "attachment"
+        ],
+        "definitions": {
+          "job-attachment": {
+            "type": "object",
+            "required": [
+              "ID"
+            ],
+            "x-uipath-resource-kind": "JobAttachment",
+            "properties": {
+              "ID": {
+                "type": "string",
+                "description": "Orchestrator attachment key"
+              },
+              "FullName": {
+                "type": "string",
+                "description": "File name"
+              },
+              "MimeType": {
+                "type": "string",
+                "description": "The MIME type of the content, such as \"application/json\" or \"image/png\""
+              },
+              "Metadata": {
+                "type": "object",
+                "description": "Dictionary<string, string> of metadata",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "settings": {},
+      "properties": {
+        "projectName": "Paystubs_Validation_IXP",
+        "versionTag": "staging"
+      },
+      "guardrail": {
+        "policies": []
+      },
+      "isEnabled": true,
+      "argumentProperties": {}
+    },
+    {
+      "$resourceType": "escalation",
+      "id": "e45a82f2-17a6-42df-9786-227c48efbc1f",
+      "name": "Escalation_1",
+      "description": "Paystub validation extraction",
+      "channels": [
+        {
+          "id": "2bcc8707-a32a-404b-8bc6-355b66e62de1",
+          "name": "Channel",
+          "description": "Channel description",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          },
+          "inputSchemaDotnetTypeMapping": null,
+          "outputSchema": {
+            "type": "object",
+            "properties": {}
+          },
+          "outputSchemaDotnetTypeMapping": null,
+          "outcomeMapping": null,
+          "recipients": [],
+          "type": "actionCenter",
+          "taskTitle": "Paystub validation extraction task",
+          "priority": "Low",
+          "properties": {
+            "appName": null,
+            "appVersion": 1,
+            "folderName": null,
+            "resourceKey": null,
+            "isActionableMessageEnabled": false,
+            "actionableMessageMetaData": null
+          },
+          "taskTitleV2": {
+            "type": "textBuilder",
+            "tokens": [
+              {
+                "type": "simpleText",
+                "rawString": "Paystub validation extraction task"
+              }
+            ]
+          },
+          "argumentProperties": {}
+        }
+      ],
+      "isAgentMemoryEnabled": false,
+      "governanceProperties": {
+        "isEscalatedAtRuntime": false
+      },
+      "escalationType": 1,
+      "vsEscalationProperties": {
+        "ixpToolId": "Paystubs_Validation_IXP",
+        "storageBucketName": "UiPath HR Documents",
+        "storageBucketFolderPath": "solution_folder"
+      },
+      "properties": {}
+    }
+  ],
+  "features": []
+}

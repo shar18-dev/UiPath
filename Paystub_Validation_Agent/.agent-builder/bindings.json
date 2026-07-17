@@ -1,0 +1,39 @@
+{
+  "version": "2.0",
+  "resources": [
+    {
+      "resource": "ixp",
+      "key": "Paystubs_Validation_IXP",
+      "value": {
+        "name": {
+          "defaultValue": "Paystubs_Validation_IXP",
+          "isExpression": false,
+          "displayName": "IXP project name"
+        },
+        "version": {
+          "defaultValue": "staging",
+          "isExpression": false,
+          "displayName": "IXP project version"
+        }
+      },
+      "metadata": {
+        "bindingsVersion": "2.2"
+      }
+    },
+    {
+      "resource": "bucket",
+      "key": "UiPath HR Documents",
+      "value": {
+        "name": {
+          "defaultValue": "UiPath HR Documents",
+          "isExpression": false,
+          "displayName": "Storage Bucket Name"
+        }
+      },
+      "metadata": {
+        "bindingsVersion": "2.2",
+        "solutionsSupport": "true"
+      }
+    }
+  ]
+}

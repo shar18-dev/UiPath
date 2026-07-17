@@ -1,0 +1,128 @@
+{
+  "$schema": "https://cloud.uipath.com/draft/2024-12/entry-point",
+  "$id": "entry-points.json",
+  "entryPoints": [
+    {
+      "filePath": "/content/agent.json",
+      "type": "agent",
+      "uniqueId": "cb2d89fc-7475-4266-9929-fc6006ead058",
+      "input": {
+        "type": "object",
+        "required": [
+          "requiredFields",
+          "paystubFile"
+        ],
+        "properties": {
+          "requiredFields": {
+            "type": "string",
+            "description": "A list of fields that must be present and non-empty, formatted in json format"
+          },
+          "threshold": {
+            "type": "number",
+            "description": "Confidence threshold (e.g., 0.35) below which the field is flagged"
+          },
+          "paystubFile": {
+            "$ref": "#/definitions/job-attachment"
+          }
+        },
+        "definitions": {
+          "job-attachment": {
+            "type": "object",
+            "required": [
+              "ID"
+            ],
+            "x-uipath-resource-kind": "JobAttachment",
+            "properties": {
+              "ID": {
+                "type": "string",
+                "description": "Orchestrator attachment key"
+              },
+              "FullName": {
+                "type": "string",
+                "description": "File name"
+              },
+              "MimeType": {
+                "type": "string",
+                "description": "The MIME type of the content, such as \"application/json\" or \"image/png\""
+              },
+              "Metadata": {
+                "type": "object",
+                "description": "Dictionary<string, string> of metadata",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "output": {
+        "type": "object",
+        "required": [
+          "status",
+          "issues",
+          "passedFields",
+          "flaggedFields",
+          "recommendedAction",
+          "extractedData",
+          "EmployeeName",
+          "PayPeriodStartDate",
+          "PayPeriodEndDate",
+          "NetPay"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "\"valid\", \"needs_review\", or \"invalid\""
+          },
+          "issues": {
+            "type": "array",
+            "description": "List of problematic fields or explanations",
+            "items": {
+              "type": "string"
+            }
+          },
+          "passedFields": {
+            "type": "array",
+            "description": "Fields that passed all checks",
+            "items": {
+              "type": "string"
+            }
+          },
+          "flaggedFields": {
+            "type": "array",
+            "description": "Fields that failed due to missing or low confidence",
+            "items": {
+              "type": "string"
+            }
+          },
+          "recommendedAction": {
+            "type": "string",
+            "description": "\"proceed\", \"human_review\", or \"skip\""
+          },
+          "extractedData": {
+            "type": "string",
+            "description": "The paystub data returned in a json string format."
+          },
+          "EmployeeName": {
+            "type": "string",
+            "description": "The employee name from paystub extraction data"
+          },
+          "PayPeriodStartDate": {
+            "type": "string",
+            "description": "The pay period start date from paystub extraction data"
+          },
+          "PayPeriodEndDate": {
+            "type": "string",
+            "description": "The pay period end date from paystub extraction data"
+          },
+          "NetPay": {
+            "type": "string",
+            "description": "The net pay from paystub extraction data"
+          }
+        },
+        "title": "Outputs"
+      }
+    }
+  ]
+}

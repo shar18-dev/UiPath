@@ -1,0 +1,12 @@
+{
+  "DocVersion": "1.0.0",
+  "StudioMinVersion": "2025.04.0",
+  "SolutionId": "4a509ccc-4696-4577-5910-08deddc3e058",
+  "Projects": [
+    {
+      "Type": "Agent",
+      "ProjectRelativePath": "Paystub_Validation_Agent/project.uiproj",
+      "Id": "c578aec5-a3dc-48b5-bf36-b38eff2b8ed2"
+    }
+  ]
+}
